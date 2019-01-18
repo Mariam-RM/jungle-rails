@@ -22,8 +22,36 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
-        </dl>
-      </div>
+        </div>
+
+    </div>
+    <div >
+      <h3>Reviews</h3>
+      <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="5"> Description </th>
+          <th colspan="5"> Rating </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Review.where(product_id: @product.id).each do |review| %>
+      <tr>
+        <td colspan="5" >
+          <%= review.description %>
+         </td>
+        <td colspan="5">
+          <%= review.rating.times do %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+        </td>
+      <tr>
+      <% end %>
+
+    </tbody>
+
+    </table>
+
     </div>
 
   </article>
