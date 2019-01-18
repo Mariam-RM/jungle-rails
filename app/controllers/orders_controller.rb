@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
-      # send email
+      # send email - commented out for now, you can go to http://localhost:3000/rails/mailers/user_mailer/order_confirm_email to view perview
       # UserMailer.order_confirm_email(current_user, order).deliver_later
       redirect_to order, notice: 'Your Order has been placed.'
     else
