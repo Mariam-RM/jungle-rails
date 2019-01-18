@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Your JungleApp order-id: <%= @order.id %> has been placed!</h3>
+
+    <p>
+      Dear Customer,
+      <br></br>
+      Thank you for ordering with JungleApp. Your total total today comes out to $ <%= @order.total_cents / 100.0 %>
+      <br></br>
+      Here is a list of the items you have selected :
+    </p>
+
+    <% LineItem.where(order_id: @order.id).each do |item|%>
+       <li> <%= Product.find(item.product_id).name %> </li>
+    <% end %>
+
+    <p>Thanks for ordering and have a great day!</p>
+  </body>
+</html>
