@@ -54,6 +54,27 @@
 
     </div>
 
+     <div class="row">
+    <div class="col-sm-6 col-sm-offset-1">
+      <%= form_for @product, :url=> product_reviews_path(@product) do |f| %>
+
+        <%= f.fields_for :reviews do |review|%>
+          <div class="form-group">
+            <%= review.label :description %>
+            <%= review.text_field :description, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= review.label :rating %>
+            <%= review.select(:rating, options_for_select([['1 Star', 1],['2 Stars', 2], ['3 Stars', 3],['4 Stars', 4],['5 Stars', 5]]))  %>
+          </div>
+
+        <% end %>
+        <%= f.submit 'Add Review', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+
   </article>
 
 </section>
