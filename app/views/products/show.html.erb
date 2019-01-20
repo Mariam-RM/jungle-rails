@@ -32,20 +32,29 @@
         <tr>
           <th colspan="5"> Description </th>
           <th colspan="5"> Rating </th>
+
         </tr>
       </thead>
       <tbody>
-        <% Review.where(product_id: @product.id).each do |review| %>
+        <% Review.where(product_id: @product.id).order(created_at: :DESC).each do |review| %>
       <tr>
         <td colspan="5" >
           <%= review.description %>
          </td>
         <td colspan="5">
-          <%= review.rating.times do %>
+          <% review.rating.times do %>
             <span class="glyphicon glyphicon-star"></span>
           <% end %>
         </td>
-      <tr>
+
+        <% if current_user %>
+          <td><% if current_user.id == review.user_id %>
+            <%= link_to fa_icon('trash'), product_review_url(product_id: @product.id), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %></td>
+          <% end %>
+        <% end %>
+
+
+      </tr>
       <% end %>
 
     </tbody>
@@ -54,6 +63,12 @@
 
     </div>
 
+    <% if !current_user %>
+      <div class="order-summary jumbotron">
+      <h4> Please log in to add a review </h4>
+        <%= link_to "login", '/login', class: 'btn btn-lg btn-primary' %>
+      </div>
+    <% else %>
      <div class="row">
     <div class="col-sm-6 col-sm-offset-1">
       <%= form_for @product, :url=> product_reviews_path(@product), method:'post' do |f| %>
@@ -66,7 +81,7 @@
 
           <div class="form-group">
             <%= review.label :rating %>
-            <%= review.select(:rating, options_for_select(1..5))  %>
+            <%= review.select(:rating, options_for_select([['1 Star', 1],['2 Stars', 2], ['3 Stars', 3],['4 Stars', 4],['5 Stars', 5]]))  %>
           </div>
 
         <% end %>
@@ -74,6 +89,8 @@
       <% end %>
     </div>
   </div>
+
+  <% end %>
 
   </article>
 
