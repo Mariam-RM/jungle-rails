@@ -22,7 +22,22 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <dt>Price</dt>
+          <dd><%= @product.price %></dd>
+           <dt> Average Rating</dt>
+          <dd><% average = @product.reviews.average(:rating)  %>
+               <% average.to_f.round(0).times do %>
+                <span class="glyphicon glyphicon-star"></span>
+              <%end %>
+              <% empty = 5 - average.to_f.round(0) %>
+              <% empty.times do %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+              <%end %>
+          </dd>
         </div>
+
+
+
 
     </div>
     <div >
@@ -42,9 +57,13 @@
           <%= review.description %>
          </td>
         <td colspan="5">
+          <% empty = 5 - review.rating  %>
           <% review.rating.times do %>
             <span class="glyphicon glyphicon-star"></span>
-          <% end %>
+            <%end %>
+           <% empty.times do %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            <%end %>
         </td>
 
         <% if current_user %>
