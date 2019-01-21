@@ -49,7 +49,7 @@
 
         <% if current_user %>
           <td><% if current_user.id == review.user_id %>
-            <%= link_to fa_icon('trash'), product_review_url(product_id: @product.id), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %></td>
+            <%= link_to fa_icon('trash'), [@product, review], class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %></td>
           <% end %>
         <% end %>
 

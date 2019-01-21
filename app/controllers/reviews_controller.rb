@@ -15,8 +15,8 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    r = Review.find(params[:id])
-    r.destroy
+    @review = Review.find(params[:id])
+    @review.destroy
     redirect_to "/products/#{params[:product_id]}"
   end
 
