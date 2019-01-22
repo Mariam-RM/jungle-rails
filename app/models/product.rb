@@ -8,8 +8,8 @@ class Product < ActiveRecord::Base
 
 
   validates :name, presence: true
-  validates :price, presence: true
-  validates :quantity, presence: true
+  validates :price, presence: true, numericality: true
+  validates :quantity, presence: true, numericality: { only_integer: true }
   validates :category, presence: true
 
 end
